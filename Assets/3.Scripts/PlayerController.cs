@@ -2,8 +2,8 @@
 
 // PlayerController는 플레이어 캐릭터로서 Player 게임 오브젝트를 제어한다.
 public class PlayerController : MonoBehaviour {
-   public AudioClip deathClip; // 사망시 재생할 오디오 클립
-   public float jumpForce = 700f; // 점프 힘
+    public AudioClip deathClip;
+    public float jumpForce = 700f; // 점프 힘
 
    private int jumpCount = 0; // 누적 점프 횟수
    private bool isGrounded = false; // 바닥에 닿았는지 나타냄
@@ -40,10 +40,12 @@ public class PlayerController : MonoBehaviour {
     private void Die()
     {
         animator.SetTrigger("Die");
-        playerAudio.clip = deathClip;
+        playerAudio.PlayOneShot(deathClip);
 
         playerRigidbody.velocity = Vector2.zero;
         isDead = true;
+
+        GameManager.instance.OnPlayerDead();
 
     }
 
